@@ -1,43 +1,67 @@
-const withPWA = require("next-pwa");
+// @ts-check
 
-const pwaConfig = {
+import withPWA from "next-pwa";
+
+//  import('next').NextConfig
+
+const runtimeCaching = [
+  {
+    urlPattern: /^https?.*/, // Cache all requests to external APIs
+    handler: "NetworkFirst",
+    options: {
+      cacheName: "external-cache",
+      expiration: {
+        maxEntries: 50,
+        maxAgeSeconds: 24 * 60 * 60, // 1 day
+      },
+    },
+  },
+  {
+    urlPattern: "/",
+    handler: "NetworkFirst", // Serve from network first, fallback to cache
+    options: {
+      cacheName: "homepage-cache",
+      expiration: {
+        maxEntries: 1,
+        maxAgeSeconds: 24 * 60 * 60, // 1 day
+      },
+    },
+  },
+  {
+    urlPattern: /\/_next\/image/,
+    handler: "CacheFirst", // Cache optimized images
+    options: {
+      cacheName: "image-cache",
+      expiration: {
+        maxEntries: 100,
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+      },
+    },
+  },
+  {
+    urlPattern: /\/page.tsx/,
+    handler: "CacheFirst", // Offline fallback page
+    options: {
+      cacheName: "offline-cache",
+      expiration: {
+        maxEntries: 1,
+      },
+    },
+  },
+];
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  // Add other Next.js config options here
+};
+
+const withPWAConfig = withPWA({
   dest: "public",
-  runtimeCaching: [
-    {
-      urlPattern: /^https?.*/, // External APIs
-      handler: "NetworkFirst",
-      options: {
-        cacheName: "external-cache",
-        expiration: {
-          maxEntries: 50,
-          maxAgeSeconds: 24 * 60 * 60, // 1 day
-        },
-      },
-    },
-    {
-      urlPattern: /\/_next\/image/, // Images caching
-      handler: "CacheFirst",
-      options: {
-        cacheName: "image-cache",
-        expiration: {
-          maxEntries: 100,
-          maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
-        },
-      },
-    },
-  ],
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
-};
+});
+export default nextConfig;
 
-const nextConfig = {
-  output: "export",
-  trailingSlash: true,
-  experimental: {
-    appDir: true,
-  },
-};
-
-// Combine PWA and Next.js configs
-module.exports = withPWA(pwaConfig)(nextConfig);
+// @ts-ignore
+// export default withPWAConfig(nextConfig);gfh
