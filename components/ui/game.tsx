@@ -680,7 +680,7 @@ const DonationClicker: React.FC = () => {
         </span>
         to get free lunch
       </h1>
-      <div className="bg-black p-4 rounded-lg shadow-lg w-full max-w-4xl text-white mx-auto border-2 border-accenth">
+      <div className="bg-black p-4 rounded-lg shadow-lg w-full  text-white mx-auto border-2 border-accenth">
         {/* Top Section with Coins and Donations */}
         <div className="flex justify-center text-center mb-4">
           <div className="mr-4 flex items-center space-x-2">
