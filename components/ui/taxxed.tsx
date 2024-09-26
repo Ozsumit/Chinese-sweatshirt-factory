@@ -1,5 +1,23 @@
 import React, { useState, useEffect, useCallback } from "react";
-// const   achievements= initialAchievements,
+
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  threshold: number;
+  achieved: boolean;
+  icon: React.ReactNode;
+}
+
+interface SpecialItem {
+  id: string;
+  name: string;
+  description: string;
+  cost: number;
+  effect: (state: GameState) => Partial<GameState>;
+  icon: React.ReactNode;
+  duration: number;
+}
 
 interface GameState {
   donations: number;
@@ -42,7 +60,7 @@ const TaxAlert: React.FC<TaxAlertProps> = ({ isOpen, onClose, taxAmount }) => {
           80% of your donations have been taken as tax!
         </p>
         <p className="text-2xl font-bold mb-6">
-          {taxAmount.toLocaleString()} coins confiscated because you commited
+          {taxAmount.toLocaleString()} coins confiscated because you committed
           tax evasion
         </p>
         <button
