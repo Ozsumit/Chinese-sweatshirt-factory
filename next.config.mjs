@@ -1,4 +1,4 @@
-import withPWA from "next-pwa";
+// import withPWA from "next-pwa";
 const withPWA = require("next-pwa")({
   dest: "public",
   runtimeCaching: [
