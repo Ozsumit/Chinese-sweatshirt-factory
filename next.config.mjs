@@ -1,12 +1,11 @@
-// import withPWA from "next-pwa";
-const withPWA = require("next-pwa")({
-  dest: "public",
+const withPWA = require('next-pwa')({
+  dest: 'public',
   runtimeCaching: [
     {
       urlPattern: /^https?.*/, // External APIs
-      handler: "NetworkFirst",
+      handler: 'NetworkFirst',
       options: {
-        cacheName: "external-cache",
+        cacheName: 'external-cache',
         expiration: {
           maxEntries: 50,
           maxAgeSeconds: 24 * 60 * 60, // 1 day
@@ -15,9 +14,9 @@ const withPWA = require("next-pwa")({
     },
     {
       urlPattern: /\/_next\/image/, // Images caching
-      handler: "CacheFirst",
+      handler: 'CacheFirst',
       options: {
-        cacheName: "image-cache",
+        cacheName: 'image-cache',
         expiration: {
           maxEntries: 100,
           maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
@@ -25,15 +24,12 @@ const withPWA = require("next-pwa")({
       },
     },
   ],
-  // Disable PWA for static exports to work with GitHub Pages
-  disable:
-    process.env.NODE_ENV === "development" ||
-    process.env.STATIC_EXPORT === "true",
+  disable: process.env.NODE_ENV === 'development' || isExport,
   register: true,
   skipWaiting: true,
 });
 
 module.exports = withPWA({
-  output: "export", // ensures next export is compatible
+  output: 'export', // ensures next export is compatible
   trailingSlash: true, // GitHub Pages sometimes requires this for proper routing
 });
