@@ -1,11 +1,13 @@
-const withPWA = require('next-pwa')({
-  dest: 'public',
+const withPWA = require("next-pwa");
+
+const pwaConfig = {
+  dest: "public",
   runtimeCaching: [
     {
       urlPattern: /^https?.*/, // External APIs
-      handler: 'NetworkFirst',
+      handler: "NetworkFirst",
       options: {
-        cacheName: 'external-cache',
+        cacheName: "external-cache",
         expiration: {
           maxEntries: 50,
           maxAgeSeconds: 24 * 60 * 60, // 1 day
@@ -14,9 +16,9 @@ const withPWA = require('next-pwa')({
     },
     {
       urlPattern: /\/_next\/image/, // Images caching
-      handler: 'CacheFirst',
+      handler: "CacheFirst",
       options: {
-        cacheName: 'image-cache',
+        cacheName: "image-cache",
         expiration: {
           maxEntries: 100,
           maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
@@ -24,12 +26,18 @@ const withPWA = require('next-pwa')({
       },
     },
   ],
-  disable: process.env.NODE_ENV === 'development' || isExport,
+  disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
-});
+};
 
-module.exports = withPWA({
-  output: 'export', // ensures next export is compatible
-  trailingSlash: true, // GitHub Pages sometimes requires this for proper routing
-});
+const nextConfig = {
+  output: "export",
+  trailingSlash: true,
+  experimental: {
+    appDir: true,
+  },
+};
+
+// Combine PWA and Next.js configs
+module.exports = withPWA(pwaConfig)(nextConfig);
