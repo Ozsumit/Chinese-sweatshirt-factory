@@ -54,11 +54,11 @@ const Welcome: React.FC<WelcomeProps> = ({ features }) => {
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
                 placeholder="Enter your name"
-                className="border rounded-md border-gray-300 bg-gray-900 text-white rounded px-3 py-2 mr-2 flex-grow"
+                className="border rounded-md border-gray-300 bg-gray-900 text-white  px-3 py-2 mr-2 flex-grow"
               />
               <button
                 onClick={handleNameSubmit}
-                className="bg-blue-500 text-white rounded-lg  px-4 py-2 rounded hover:bg-blue-600"
+                className="bg-blue-500 text-white rounded-lg  px-4 py-2  hover:bg-blue-600"
               >
                 Submit
               </button>
