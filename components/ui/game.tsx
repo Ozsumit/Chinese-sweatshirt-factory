@@ -691,7 +691,7 @@ const DonationClicker: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center text-center p-4 min-h-screen bg-gray-900">
+    <div className="flex select-none flex-col justify-center items-center text-center p-4 min-h-screen bg-gray-900">
       <h1 className="text-2xl md:text-4xl font-mono w-full md:w-6/12 justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-white">
         Beat the high score of
         <span className="text-yellow-400 flex items-center">
