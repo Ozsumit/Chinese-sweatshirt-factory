@@ -696,7 +696,7 @@ const DonationClicker: React.FC = () => {
         Beat the high score of
         <span className="text-yellow-400 flex items-center">
           <LucideIcons.Coins className="text-yellow-400" />
-          9.5T
+          9.5D
         </span>
         to get free lunch
       </h1>
