@@ -60,7 +60,7 @@ const TaxAlert: React.FC<TaxAlertProps> = ({ isOpen, onClose, taxAmount }) => {
           80% of your donations have been taken as tax!
         </p>
         <p className="text-2xl font-bold mb-6">
-          {taxAmount.toLocaleString()} coins confiscated because you committed
+          {formatLargeNumber(taxAmount)} coins confiscated because you committed
           tax evasion
         </p>
         {/* <p className="text-2xl font-bold mb-6">
@@ -84,7 +84,20 @@ interface UseTaxAlertResult {
   taxAmount: number;
   closeTaxAlert: () => void;
 }
-
+const formatLargeNumber = (num: number): string => {
+  if (num >= 1e33) return (num / 1e33).toFixed(2) + "D";
+  if (num >= 1e30) return (num / 1e30).toFixed(2) + "N";
+  if (num >= 1e27) return (num / 1e27).toFixed(2) + "O";
+  if (num >= 1e24) return (num / 1e24).toFixed(2) + "S";
+  if (num >= 1e21) return (num / 1e21).toFixed(2) + "S";
+  if (num >= 1e18) return (num / 1e18).toFixed(2) + "Q";
+  if (num >= 1e15) return (num / 1e15).toFixed(2) + "q";
+  if (num >= 1e12) return (num / 1e12).toFixed(2) + "T";
+  if (num >= 1e9) return (num / 1e9).toFixed(2) + "B";
+  if (num >= 1e6) return (num / 1e6).toFixed(2) + "M";
+  if (num >= 1e3) return (num / 1e3).toFixed(2) + "K";
+  return num.toFixed(0);
+};
 const useTaxAlert = (
   gameState: GameState,
   setGameState: React.Dispatch<React.SetStateAction<GameState>>
