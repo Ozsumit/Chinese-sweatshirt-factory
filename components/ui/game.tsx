@@ -669,6 +669,11 @@ const DonationClicker: React.FC = () => {
       setGameState(initialGameState);
       setActiveItems({});
       localStorage.removeItem("donationClickerState7");
+
+      if (saveButtonRef.current) {
+        saveButtonRef.current.click();
+      }
+
       toast.success("Game Reset", {
         description: "All progress has been reset.",
       });

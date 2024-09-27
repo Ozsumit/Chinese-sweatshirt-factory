@@ -17,7 +17,7 @@ export default function Home() {
             The Donation Game
           </h1>
           <SweatshirtFactory />
-          {/* <button onClick={() => toast("Hello World")}>Hello World</button> */}
+          {/* <button onClick={() => Toaster("Hello World")}>Hello World</button> */}
         </main>
       </div>
     </>
