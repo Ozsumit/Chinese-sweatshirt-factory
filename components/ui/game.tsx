@@ -326,8 +326,19 @@ const DonationClicker: React.FC = () => {
       setTimeout(() => setSaveIndicator(false), 1000);
     }
   }, [gameState]);
-  const { TaxAlert, showTaxAlert, taxAmount, taxRate, closeTaxAlert } =
-    useTaxAlert(gameState, setGameState);
+  const {
+    TaxAlert,
+    showTaxAlert,
+    taxAmount,
+    taxRate,
+    requiredClicks,
+    currentClicks,
+    closeTaxAlert,
+    preventTaxClick,
+    debugTriggerTaxAlert,
+    initialTimeLeft,
+  } = useTaxAlert(gameState, setGameState);
+
   // const [showResetButton, setShowResetButton] = useState(false);
   useEffect(() => {
     const autoClickSave = () => {
@@ -849,7 +860,11 @@ const DonationClicker: React.FC = () => {
           isOpen={showTaxAlert}
           onClose={closeTaxAlert}
           taxAmount={taxAmount}
-          taxRate={taxRate} // Add this line
+          taxRate={taxRate}
+          requiredClicks={requiredClicks}
+          currentClicks={currentClicks}
+          onPreventClick={preventTaxClick}
+          initialTimeLeft={initialTimeLeft}
         />
         <div className="text-center mt-4 flex justify-center gap-2">
           <button
@@ -873,6 +888,14 @@ const DonationClicker: React.FC = () => {
             {saveIndicator ? "Progress Saved!" : "Save Progress"}
           </button>
         </div>
+
+        <button
+          onClick={debugTriggerTaxAlert}
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Debug: Trigger Tax Alert
+        </button>
+
         {/* Secret Code Input */}
         <div className="mt-4">
           <form
