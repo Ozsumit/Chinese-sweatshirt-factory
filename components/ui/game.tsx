@@ -411,7 +411,7 @@ const DonationClicker: React.FC = () => {
           donations: prev.donations - prev.autoClickerCost,
           autoClickerCount: prev.autoClickerCount + .4,
           autoClickerCost: newAutoClickerCost,
-          autoClickerby: prev.autoClickerCount + .4, // Updated this line
+          autoClickerby: prev.autoClickerCount + 1, // Updated this line
           autoClickerLevel: prev.autoClickerCount + 2.6,
         };
       }
