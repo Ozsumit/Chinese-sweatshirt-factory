@@ -205,11 +205,11 @@ const specialItems: SpecialItem[] = [
   {
     id: "frostBonus",
     name: "Frost Bonus",
-    description: "Freezes auto-clicker cost increase for 3 seconds",
+    description: "Freezes auto-clicker cost increase for 5 seconds",
     cost: 500000,
     effect: (state) => ({ frostBonusActive: true }),
     icon: <LucideIcons.Snowflake color="cyan" />,
-    duration: 3000,
+    duration: 5000,
   },
   {
     id: "powerSurge",
@@ -409,10 +409,10 @@ const DonationClicker: React.FC = () => {
         return {
           ...prev,
           donations: prev.donations - prev.autoClickerCost,
-          autoClickerCount: prev.autoClickerCount + .4,
+          autoClickerCount: prev.autoClickerCount + 0.5,
           autoClickerCost: newAutoClickerCost,
           autoClickerby: prev.autoClickerCount + 1, // Updated this line
-          autoClickerLevel: prev.autoClickerCount + 1.6,
+          autoClickerLevel: prev.autoClickerLevel + 1,
         };
       }
       return prev;
@@ -538,6 +538,11 @@ const DonationClicker: React.FC = () => {
           }
           if (achieved) {
             setShowAchievement(achievement);
+            // Add toast notification for achievement
+            toast.success(`Achievement Unlocked: ${achievement.name}`, {
+              description: achievement.description,
+              icon: <LucideIcons.Medal />, // Ensure this is a valid React component or an image URL
+            });
             setTimeout(() => setShowAchievement(null), 3000);
             return { ...achievement, achieved: true };
           }
