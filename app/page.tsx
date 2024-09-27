@@ -6,7 +6,7 @@ import DonationClicker from "@/components/ui/game";
 // import Image from "next/image";
 import { toast, Toaster } from "sonner";
 import Welcome from "@/components/ui/welcome";
-const siteFeatures = ["Feature 1", "Feature 2", "Feature 3"];
+const siteFeatures = ["Offline capability", "Reset Game ", "Harder Gameplay"];
 const userName = localStorage.getItem("userName");
 
 export default function Home() {

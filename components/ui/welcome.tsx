@@ -32,20 +32,20 @@ const Welcome: React.FC<WelcomeProps> = ({ features }) => {
     <>
       {showWelcome && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-900">
+          <div className="bg-gray-900 p-8 rounded-lg text-gray-100 shadow-lg max-w-lg w-full">
+            <h1 className="bg-gray-900 font-bold mb-4 text-gray-100">
               Welcome to Our Site!
             </h1>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-300 mb-4">
               We're excited to have you here. Here are some features you'll
               enjoy:
             </p>
-            <ul className="list-disc list-inside text-gray-600 mb-4">
+            <ul className="list-disc list-inside text-gray-200 mb-4">
               {features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-400 mb-2">
               Please enter your name to get started:
             </p>
             <div className="flex items-center mb-4">
@@ -54,11 +54,11 @@ const Welcome: React.FC<WelcomeProps> = ({ features }) => {
                 value={inputName}
                 onChange={(e) => setInputName(e.target.value)}
                 placeholder="Enter your name"
-                className="border border-gray-300 rounded px-3 py-2 mr-2 flex-grow"
+                className="border rounded-md border-gray-300 bg-gray-900 text-white rounded px-3 py-2 mr-2 flex-grow"
               />
               <button
                 onClick={handleNameSubmit}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                className="bg-blue-500 text-white rounded-lg  px-4 py-2 rounded hover:bg-blue-600"
               >
                 Submit
               </button>
