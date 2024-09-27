@@ -326,10 +326,8 @@ const DonationClicker: React.FC = () => {
       setTimeout(() => setSaveIndicator(false), 1000);
     }
   }, [gameState]);
-  const { TaxAlert, showTaxAlert, taxAmount, closeTaxAlert } = useTaxAlert(
-    gameState,
-    setGameState
-  );
+  const { TaxAlert, showTaxAlert, taxAmount, taxRate, closeTaxAlert } =
+    useTaxAlert(gameState, setGameState);
   // const [showResetButton, setShowResetButton] = useState(false);
   useEffect(() => {
     const autoClickSave = () => {
@@ -683,12 +681,11 @@ const DonationClicker: React.FC = () => {
 
   return (
     <div className="flex flex-col justify-center items-center text-center p-4 min-h-screen bg-gray-900">
-      
       <h1 className="text-2xl md:text-4xl font-mono w-full md:w-6/12 justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-white">
         Beat the high score of
         <span className="text-yellow-400 flex items-center">
           <LucideIcons.Coins className="text-yellow-400" />
-          9.5D
+          9.5T
         </span>
         to get free lunch
       </h1>
@@ -852,6 +849,7 @@ const DonationClicker: React.FC = () => {
           isOpen={showTaxAlert}
           onClose={closeTaxAlert}
           taxAmount={taxAmount}
+          taxRate={taxRate} // Add this line
         />
         <div className="text-center mt-4 flex justify-center gap-2">
           <button

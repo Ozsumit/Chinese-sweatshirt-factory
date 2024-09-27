@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-
 interface Achievement {
   id: string;
   name: string;
@@ -47,9 +46,15 @@ interface TaxAlertProps {
   isOpen: boolean;
   onClose: () => void;
   taxAmount: number;
+  taxRate: number;
 }
 
-const TaxAlert: React.FC<TaxAlertProps> = ({ isOpen, onClose, taxAmount }) => {
+const TaxAlert: React.FC<TaxAlertProps> = ({
+  isOpen,
+  onClose,
+  taxAmount,
+  taxRate,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -57,16 +62,12 @@ const TaxAlert: React.FC<TaxAlertProps> = ({ isOpen, onClose, taxAmount }) => {
       <div className="bg-red-600 p-8 rounded-lg text-white text-center">
         <h2 className="text-3xl font-bold mb-4">Surprise Tax!</h2>
         <p className="text-xl mb-4">
-          80% of your donations have been taken as tax!
+          {taxRate.toFixed(1)}% of your donations have been taken as tax!
         </p>
         <p className="text-2xl font-bold mb-6">
           {formatLargeNumber(taxAmount)} coins confiscated because you committed
           tax evasion
         </p>
-        {/* <p className="text-2xl font-bold mb-6">
-          You have {donations.toLocaleString()} coins confiscated because
-          you committed tax evasion
-        </p> */}
         <button
           onClick={onClose}
           className="bg-white text-red-600 px-6 py-2 rounded-lg font-bold text-xl"
@@ -82,8 +83,10 @@ interface UseTaxAlertResult {
   TaxAlert: React.FC<TaxAlertProps>;
   showTaxAlert: boolean;
   taxAmount: number;
+  taxRate: number;
   closeTaxAlert: () => void;
 }
+
 const formatLargeNumber = (num: number): string => {
   if (num >= 1e33) return (num / 1e33).toFixed(2) + "D";
   if (num >= 1e30) return (num / 1e30).toFixed(2) + "N";
@@ -98,19 +101,29 @@ const formatLargeNumber = (num: number): string => {
   if (num >= 1e3) return (num / 1e3).toFixed(2) + "K";
   return num.toFixed(0);
 };
+
 const useTaxAlert = (
   gameState: GameState,
   setGameState: React.Dispatch<React.SetStateAction<GameState>>
 ): UseTaxAlertResult => {
   const [showTaxAlert, setShowTaxAlert] = useState<boolean>(false);
   const [taxAmount, setTaxAmount] = useState<number>(0);
+  const [taxRate, setTaxRate] = useState<number>(0);
 
   const applyTax = useCallback(() => {
     setGameState((prev) => {
-      const newTaxAmount = Math.floor(prev.donations * 0.8);
-      // const newTaxAmount = Math.floor(prev.donations * 0.8);
+      // Generate a random tax rate between 40% and 80%
+      // Using a skewed distribution to favor higher rates
+      const randomFactor = Math.pow(Math.random(), 0.3); // This will skew towards higher values
+      const newTaxRate = 40 + randomFactor * 40; // This will result in a range from 40 to 80
+
+      const actualTaxRate = newTaxRate / 100;
+      const newTaxAmount = Math.floor(prev.donations * actualTaxRate);
+
       setTaxAmount(newTaxAmount);
+      setTaxRate(newTaxRate);
       setShowTaxAlert(true);
+
       return {
         ...prev,
         donations: prev.donations - newTaxAmount,
@@ -119,8 +132,8 @@ const useTaxAlert = (
   }, [setGameState]);
 
   const scheduleTax = useCallback(() => {
-    // Random time between 1 and 4 minutes (in milliseconds)
-    const delay = Math.random() * (240000 - 60000) + 60000;
+    // Random time between 30 seconds and 5 minutes (in milliseconds)
+    const delay = Math.random() * (300000 - 30000) + 50000;
     setTimeout(() => {
       applyTax();
       scheduleTax(); // Schedule the next tax event
@@ -134,7 +147,7 @@ const useTaxAlert = (
 
   const closeTaxAlert = () => setShowTaxAlert(false);
 
-  return { TaxAlert, showTaxAlert, taxAmount, closeTaxAlert };
+  return { TaxAlert, showTaxAlert, taxAmount, taxRate, closeTaxAlert };
 };
 
 export default useTaxAlert;
