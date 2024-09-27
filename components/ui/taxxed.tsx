@@ -95,6 +95,7 @@ const useTaxAlert = (
   const applyTax = useCallback(() => {
     setGameState((prev) => {
       const newTaxAmount = Math.floor(prev.donations * 0.8);
+      const newTaxAmount = Math.floor(prev.donations * 0.8);
       setTaxAmount(newTaxAmount);
       setShowTaxAlert(true);
       return {
