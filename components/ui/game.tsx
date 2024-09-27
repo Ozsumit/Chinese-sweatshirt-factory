@@ -412,7 +412,7 @@ const DonationClicker: React.FC = () => {
           autoClickerCount: prev.autoClickerCount + 0.4,
           autoClickerCost: newAutoClickerCost,
           autoClickerby: prev.autoClickerCount + 1, // Updated this line
-          autoClickerLevel: prev.autoClickerCount + 1,
+          autoClickerLevel: prev.autoClickerCount + 1.6,
         };
       }
       return prev;
@@ -676,7 +676,7 @@ const DonationClicker: React.FC = () => {
         Beat the high score of
         <span className="text-yellow-400 flex items-center">
           <LucideIcons.Coins className="text-yellow-400" />
-          9× 10³¹
+          9.5D
         </span>
         to get free lunch
       </h1>

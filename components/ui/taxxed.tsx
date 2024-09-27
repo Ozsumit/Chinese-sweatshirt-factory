@@ -63,6 +63,10 @@ const TaxAlert: React.FC<TaxAlertProps> = ({ isOpen, onClose, taxAmount }) => {
           {taxAmount.toLocaleString()} coins confiscated because you committed
           tax evasion
         </p>
+        {/* <p className="text-2xl font-bold mb-6">
+          You have {donations.toLocaleString()} coins confiscated because
+          you committed tax evasion
+        </p> */}
         <button
           onClick={onClose}
           className="bg-white text-red-600 px-6 py-2 rounded-lg font-bold text-xl"
@@ -90,7 +94,7 @@ const useTaxAlert = (
 
   const applyTax = useCallback(() => {
     setGameState((prev) => {
-      const newTaxAmount = Math.floor(prev.donations * 0.2);
+      const newTaxAmount = Math.floor(prev.donations * 0.8);
       setTaxAmount(newTaxAmount);
       setShowTaxAlert(true);
       return {
