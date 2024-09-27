@@ -24,7 +24,7 @@ export default function Home() {
       <Welcome features={siteFeatures} />
       <PWAInstallAndNotifications />
       <Toaster />
-      <div className="">
+      <div className="select-none">
         <main className="flex flex-col gap-8 row-start-2 items-center">
           <h1 className="text-4xl mt-10 md:text-6xl font-mono w-full md:w-6/12 justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-green-500">
             The Donation Game
