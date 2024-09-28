@@ -1,55 +1,39 @@
 import withPWA from "next-pwa";
-
-const runtimeCaching = [
-  {
-    urlPattern: /^https?.*/, // Cache all requests to external APIs
-    handler: "NetworkFirst",
-    options: {
-      cacheName: "external-cache",
-      expiration: {
-        maxEntries: 50,
-        maxAgeSeconds: 24 * 60 * 60, // 1 day
-      },
-    },
-  },
-  {
-    urlPattern: "/",
-    handler: "NetworkFirst", // Serve from network first, fallback to cache
-    options: {
-      cacheName: "homepage-cache",
-      expiration: {
-        maxEntries: 1,
-        maxAgeSeconds: 24 * 60 * 60, // 1 day
-      },
-    },
-  },
-  {
-    urlPattern: /\/_next\/image/,
-    handler: "CacheFirst", // Cache optimized images
-    options: {
-      cacheName: "image-cache",
-      expiration: {
-        maxEntries: 100,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
-      },
-    },
-  },
-  {
-    urlPattern: /\/page.tsx/,
-    handler: "CacheFirst", // Offline fallback page
-    options: {
-      cacheName: "offline-cache",
-      expiration: {
-        maxEntries: 1,
-      },
-    },
-  },
-];
-
-export default withPWA({
+const withPWA = require("next-pwa")({
   dest: "public",
-  runtimeCaching,
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/, // External APIs
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "external-cache",
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 24 * 60 * 60, // 1 day
+        },
+      },
+    },
+    {
+      urlPattern: /\/_next\/image/, // Images caching
+      handler: "CacheFirst",
+      options: {
+        cacheName: "image-cache",
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+        },
+      },
+    },
+  ],
+  // Disable PWA for static exports to work with GitHub Pages
+  disable:
+    process.env.NODE_ENV === "development" ||
+    process.env.STATIC_EXPORT === "true",
   register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV === "development", // Enable PWA only in production
+});
+
+module.exports = withPWA({
+  output: "export", // ensures next export is compatible
+  trailingSlash: true, // GitHub Pages sometimes requires this for proper routing
 });
