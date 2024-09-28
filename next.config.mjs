@@ -1,8 +1,8 @@
 import withPWA from "next-pwa";
 
-const runtimeCaching = [
-  /* your caching strategies */
-];
+// const runtimeCaching = [
+//   /* your caching strategies */
+// ];
 
 // Use "export default" as you're working with modules
 export default withPWA({
