@@ -1,8 +1,14 @@
-const withPWA = require("next-pwa")({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
-});
+import withPWA from "next-pwa";
 
-module.exports = withPWA({
-  // your other Next.js config
+const runtimeCaching = [
+  /* your caching strategies */
+];
+
+// Use "export default" as you're working with modules
+export default withPWA({
+  dest: "public",
+  runtimeCaching,
+  register: true,
+  skipWaiting: true,
+  // disable: process.env.NODE_ENV === "development", // Enable PWA only in production
 });
