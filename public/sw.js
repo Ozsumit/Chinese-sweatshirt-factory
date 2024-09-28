@@ -6,24 +6,15 @@ define(["./workbox-e43f5367"], function (workbox) {
   self.skipWaiting();
   workbox.clientsClaim();
 
-  // Cache the start page (HTML)
+  // Cache the whole page (HTML) for 30 days
   workbox.registerRoute(
     "/",
-    new workbox.NetworkFirst({
-      cacheName: "start-url",
+    new workbox.CacheFirst({
+      cacheName: "whole-page",
       plugins: [
-        {
-          cacheWillUpdate: async ({ request, response }) => {
-            if (response && response.type === "opaqueredirect") {
-              return new Response(response.body, {
-                status: 200,
-                statusText: "OK",
-                headers: response.headers,
-              });
-            }
-            return response;
-          },
-        },
+        new workbox.ExpirationPlugin({
+          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+        }),
       ],
     }),
     "GET"

@@ -1,54 +1,53 @@
-// @ts-check
-
+// next.config.mjs
 import withPWA from "next-pwa";
-
-//  import('next').NextConfig
 
 const runtimeCaching = [
   {
-    urlPattern: /^https?.*/, // Cache all requests to external APIs
-    handler: "NetworkFirst",
+    urlPattern: /^https?.*/,
+    handler: "CacheFirst",
     options: {
       cacheName: "external-cache",
       expiration: {
         maxEntries: 50,
-        maxAgeSeconds: 24 * 60 * 60, // 1 day
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
       },
     },
   },
   {
     urlPattern: "/",
-    handler: "NetworkFirst", // Serve from network first, fallback to cache
+    handler: "CacheFirst",
     options: {
       cacheName: "homepage-cache",
       expiration: {
         maxEntries: 1,
-        maxAgeSeconds: 24 * 60 * 60, // 1 day
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
       },
     },
   },
   {
     urlPattern: /\/_next\/image/,
-    handler: "CacheFirst", // Cache optimized images
+    handler: "CacheFirst",
     options: {
       cacheName: "image-cache",
       expiration: {
         maxEntries: 100,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
       },
     },
   },
   {
-    urlPattern: /\/page.tsx/,
-    handler: "CacheFirst", // Offline fallback page
+    urlPattern: /\/page\.tsx/,
+    handler: "CacheFirst",
     options: {
       cacheName: "offline-cache",
       expiration: {
         maxEntries: 1,
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
       },
     },
   },
 ];
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -60,8 +59,7 @@ const withPWAConfig = withPWA({
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
+  runtimeCaching,
 });
-export default nextConfig;
 
-// @ts-ignore
-// export default withPWAConfig(nextConfig);gfh
+export default withPWAConfig(nextConfig);
