@@ -10,5 +10,5 @@ export default withPWA({
   runtimeCaching,
   register: true,
   skipWaiting: true,
-  // disable: process.env.NODE_ENV === "development", // Enable PWA only in production
+  disable: process.env.NODE_ENV === "development", // Enable PWA only in production
 });
