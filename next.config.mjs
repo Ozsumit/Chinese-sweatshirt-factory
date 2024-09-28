@@ -1,4 +1,3 @@
-import withPWA from "next-pwa";
 const withPWA = require("next-pwa")({
   dest: "public",
   runtimeCaching: [
@@ -25,10 +24,7 @@ const withPWA = require("next-pwa")({
       },
     },
   ],
-  // Disable PWA for static exports to work with GitHub Pages
-  disable:
-    process.env.NODE_ENV === "development" ||
-    process.env.STATIC_EXPORT === "true",
+  disable: process.env.NODE_ENV === "development" || isExport,
   register: true,
   skipWaiting: true,
 });
