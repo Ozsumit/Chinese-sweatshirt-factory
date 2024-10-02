@@ -13,13 +13,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    let client: MongoClient | null = null; // Declare client with null initially
+    let client: MongoClient | null = null;
     try {
       console.log("Attempting to connect to MongoDB...");
-      client = await MongoClient.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      client = await MongoClient.connect(uri!); // Remove useNewUrlParser and useUnifiedTopology
       console.log("Connected successfully to MongoDB");
 
       const db = client.db(dbName);
@@ -29,15 +26,14 @@ export default async function handler(
       const topDonors = await db
         .collection("leaderboards")
         .find()
-        .sort({ donation: -1 }) // Sort donations from highest to lowest
-        .limit(5) // Limit to top 5 donors
+        .sort({ donation: -1 })
+        .limit(5)
         .toArray();
 
       console.log(
         "Query successful. Number of donors retrieved:",
         topDonors.length
       );
-
       res.status(200).json(topDonors);
     } catch (error) {
       console.error("Detailed error:", error);
@@ -47,7 +43,7 @@ export default async function handler(
       });
     } finally {
       if (client) {
-        await client.close(); // Ensure client is closed only if it was successfully connected
+        await client.close();
         console.log("MongoDB connection closed");
       }
     }
