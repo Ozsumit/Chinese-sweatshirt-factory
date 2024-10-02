@@ -36,8 +36,8 @@ define(["./workbox-e43f5367"], function (workbox) {
       cacheName: "static-resources",
       plugins: [
         new workbox.ExpirationPlugin({
-          maxEntries: 50, // Limit the number of items in the cache
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+          maxEntries: 200, // Limit the number of items in the cache
+          maxAgeSeconds: 90 * 24 * 60 * 60, // Cache for 30 days
         }),
       ],
     })
@@ -50,8 +50,8 @@ define(["./workbox-e43f5367"], function (workbox) {
       cacheName: "image-cache",
       plugins: [
         new workbox.ExpirationPlugin({
-          maxEntries: 50,
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache images for 30 days
+          maxEntries: 200,
+          maxAgeSeconds: 90 * 24 * 60 * 60, // Cache images for 30 days
         }),
       ],
     })
