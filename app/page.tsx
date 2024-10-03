@@ -34,6 +34,7 @@ const reverseDonationFormat = (formattedValue: string): number => {
     M: 1e6,
     K: 1e3,
   };
+  console.log(process.env.NEXT_PUBLIC_MONGODB_URI);
 
   const regex = /^([\d.]+)([A-Za-z])$/;
   const match = formattedValue.match(regex);
@@ -127,6 +128,10 @@ export default function Home() {
     <>
       <PWAInstallAndNotifications />
       <Toaster />
+      <p className="mb-1">
+        <strong>NEXT_PUBLIC_MONGODB_URI:</strong>{" "}
+        {process.env.NEXT_PUBLIC_MONGODB_URI || "Not set"}
+      </p>
       <div className="select-none ">
         <Welcome features={siteFeatures} />
         <main className="flex flex-col gap-8 mb-5 row-start-2 items-center">
