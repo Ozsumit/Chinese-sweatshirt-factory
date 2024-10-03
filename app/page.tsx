@@ -128,6 +128,8 @@ export default function Home() {
     <>
       <PWAInstallAndNotifications />
       <Toaster />
+
+      
       {/* <p className="mb-1">
         <strong>MONGODB_URI:</strong> {process.env.MONGODB_URI || "Not set"}
       </p> */}
