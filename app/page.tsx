@@ -129,8 +129,7 @@ export default function Home() {
       <PWAInstallAndNotifications />
       <Toaster />
       <p className="mb-1">
-        <strong>NEXT_PUBLIC_MONGODB_URI:</strong>{" "}
-        {process.env.NEXT_PUBLIC_MONGODB_URI || "Not set"}
+        <strong>MONGODB_URI:</strong> {process.env.MONGODB_URI || "Not set"}
       </p>
       <div className="select-none ">
         <Welcome features={siteFeatures} />
