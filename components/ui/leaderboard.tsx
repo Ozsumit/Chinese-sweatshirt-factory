@@ -102,7 +102,7 @@ const TopDonorsComponent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         ) : error ? (
           <Alert
             variant="error"
-            message="{error}"
+            message=""
             className="bg-red-950/50 border-red-900"
           >
             <AlertDescription>{error}</AlertDescription>
