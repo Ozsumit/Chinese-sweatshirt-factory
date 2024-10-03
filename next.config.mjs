@@ -52,7 +52,7 @@ const runtimeCaching = [
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: "export",
+  // output: "export",
   // Add other Next.js config options here
 };
 
