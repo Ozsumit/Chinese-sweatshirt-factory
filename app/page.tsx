@@ -3,6 +3,16 @@
 import PWAInstallAndNotifications from "@/components/ui/install";
 import SweatshirtFactory from "@/components/ui/game";
 import DonationClicker from "@/components/ui/game";
+import {
+  LayoutGrid,
+  Trophy,
+  Medal,
+  X,
+  RefreshCw,
+  ArrowLeft,
+  DollarSign,
+  Users,
+} from "lucide-react";
 import React, { useState, useEffect, useCallback } from "react";
 
 import { toast, Toaster } from "sonner";
@@ -115,21 +125,31 @@ export default function Home() {
 
   return (
     <>
-      <Welcome features={siteFeatures} />
       <PWAInstallAndNotifications />
       <Toaster />
-      <TopDonorsComponent />
-      <div className="select-none">
-        <main className="flex flex-col gap-8 row-start-2 items-center">
-          <h1 className="text-4xl mt-10 md:text-6xl font-mono w-full md:w-6/12 justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-green-500">
+      <div className="select-none ">
+        <Welcome features={siteFeatures} />
+        <main className="flex flex-col gap-8 mb-5 row-start-2 items-center">
+          <h1 className="text-4xl mt-10 md:text-6xl font-mono w-full md:w-11/12 justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-green-500">
             The Donation Game
           </h1>
-          <h1 className="text-2xl w-auto border-b-2 p-[1%] border-yellow-400 md:text-4xl font-sans justify-center items-center flex flex-col font-bold text-yellow-400">
+          <h1 className="text-2xl  w-auto border-b-2 p-[3px] border-yellow-400 md:text-4xl font-sans justify-center items-center flex flex-col font-bold text-yellow-400">
             {userName ? `Welcome, ${userName}` : "Welcome to the Donation Game"}
           </h1>
-          <Button onClick={handleManualUpdate}>Update Manually</Button>
-          <SweatshirtFactory />
         </main>
+        <div className="select-none flex flex-col justify-center items-center">
+          <SweatshirtFactory />
+        </div>
+
+        {/* <Button onClick={handleManualUpdate}>Update Manually</Button> */}
+        <div className="flex justify-center items-center mt-4 mb-4">
+          <Button
+            onClick={handleManualUpdate}
+            className="bg-slate-900 hover:bg-slate-800 text-slate-100 border border-slate-700/50 shadow-lg flex items-center gap-2"
+          >
+            <RefreshCw className="w-4 h-4" /> Update Manually
+          </Button>
+        </div>
       </div>
     </>
   );

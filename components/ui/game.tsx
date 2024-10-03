@@ -9,6 +9,7 @@ import React, {
 import * as LucideIcons from "lucide-react";
 import { toast } from "sonner";
 import useTaxAlert from "@/components/ui/taxxed";
+import TopDonorsComponent from "./leaderboard";
 type Achievement = {
   id: string;
   name: string;
@@ -691,263 +692,270 @@ const DonationClicker: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex select-none flex-col justify-center items-center text-center p-4 min-h-screen bg-gray-900">
-      <h1 className="text-2xl md:text-4xl font-mono w-full md:w-6/12 justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-white">
-        Beat the high score of
-        <span className="text-yellow-400 flex items-center">
-          <LucideIcons.Coins className="text-yellow-400" />
-          9.5D
-        </span>
-        to get free lunch
-      </h1>
-      <div className="bg-black p-4 rounded-lg shadow-lg w-full  text-white mx-auto border-2 border-accenth">
-        {/* Top Section with Coins and Donations */}
-        <div className="flex justify-center text-center mb-4">
-          <div className="mr-4 flex items-center space-x-2">
+    <div className="flex flex-row-reverse gap-4 w-auto justify-center items-center text-center rounded-[1rem] p-4 min-h-screen bg-gray-900 border-b border-gray-700">
+      <TopDonorsComponent />
+      <div className="flex flex-col justify-center items-center w-full">
+        <h1 className="text-2xl md:text-4xl font-mono w-full justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-white">
+          Beat the high score of
+          <span className="text-yellow-400 flex items-center">
             <LucideIcons.Coins className="text-yellow-400" />
-            <p className="text-3xl md:text-5xl font-mono font-bold">
-              {formatLargeNumber(gameState.donations)}
-            </p>
-          </div>
-        </div>
-
-        {/* Donate Button */}
-        <div className="text-center mb-6">
-          <button
-            onClick={handleClick}
-            className="bg-[#0e8a4c] hover:bg-[hsl(150,82%,20%)] text-white py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-md w-full text-base md:text-lg font-bold"
-          >
-            Donate!
-          </button>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <button
-            onClick={buyAutoClicker}
-            disabled={gameState.donations < gameState.autoClickerCost}
-            className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 text-sm md:text-base"
-          >
-            <LucideIcons.Clock className="inline mr-2" />{" "}
-            {formatLargeNumber(gameState.autoClickerCost)}
-          </button>
-
-          <button
-            onClick={buyUpgrade}
-            disabled={gameState.donations < gameState.upgradeCost}
-            className="py-2 px-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-400 text-sm md:text-base"
-          >
-            <LucideIcons.Zap className="inline mr-2" />{" "}
-            {formatLargeNumber(gameState.upgradeCost)}
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="text-base md:text-xl mb-4 flex justify-around">
-          <div className="flex flex-col justify-center items-center">
-            <div className="flex flex-row justify-center items-center">
-              <LucideIcons.Clock className="inline mr-2 text-orange-500" />
-              {gameState.autoClickerLevel}
-            </div>
-            <div>
-              {formatLargeNumber(gameState.autoClickerby)} Coins/sec
-              {gameState.specialItemBonus?.autoClickerPower > 0 && (
-                <span className="text-green-400">
-                  +
-                  {formatLargeNumber(
-                    gameState.specialItemBonus.autoClickerPower
-                  )}
-                </span>
-              )}
+            9.5D
+          </span>
+          to get free lunch
+        </h1>
+        <div className="bg-gray-950 p-4 rounded-lg shadow-lg w-full  text-white mx-auto border-accenth">
+          {/* Top Section with Coins and Donations */}
+          <div className="flex justify-center text-center mb-4">
+            <div className="mr-4 flex items-center space-x-2">
+              <LucideIcons.Coins className="text-yellow-400" />
+              <p className="text-3xl md:text-5xl font-mono font-bold">
+                {formatLargeNumber(gameState.donations)}
+              </p>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <div className="flex flex-row justify-center items-center">
-              <LucideIcons.Zap className="inline mr-2 text-orange-500" />
-              {gameState.upgradeLevel}
-            </div>
-            <div>
-              {formatLargeNumber(gameState.clickPowerby)} Coins/click
-              {gameState.specialItemBonus?.clickPower > 0 && (
-                <span className="text-green-400 ml-1">
-                  +{formatLargeNumber(gameState.specialItemBonus.clickPower)}
-                </span>
-              )}
-            </div>
+
+          {/* Donate Button */}
+          <div className="text-center mb-6">
+            <button
+              onClick={handleClick}
+              className="bg-[#0e8a4c] hover:bg-[hsl(150,82%,20%)] text-white py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-md w-full text-base md:text-lg font-bold"
+            >
+              Donate!
+            </button>
           </div>
-        </div>
 
-        {/* Special Items */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 mb-4">
-          {specialItems.map((item) => {
-            const isActive =
-              activeItems[item.id] && activeItems[item.id] > Date.now();
-            const remainingTime = isActive
-              ? activeItems[item.id] - Date.now()
-              : 0;
-            const itemCost =
-              gameState.specialItems.find((si) => si.id === item.id)?.cost ||
-              item.cost;
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <button
+              onClick={buyAutoClicker}
+              disabled={gameState.donations < gameState.autoClickerCost}
+              className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 text-sm md:text-base"
+            >
+              <LucideIcons.Clock className="inline mr-2" />{" "}
+              {formatLargeNumber(gameState.autoClickerCost)}
+            </button>
 
-            return (
-              <button
-                title={item.description}
-                key={item.id}
-                onClick={() => buySpecialItem(item)}
-                disabled={
-                  gameState.donations < itemCost || isActive ? true : undefined
-                }
-                className={`py-2 px-2 md:px-4 rounded-lg flex flex-col items-center justify-center gap-1 text-xs md:text-sm ${
-                  gameState.donations < itemCost || isActive
-                    ? "opacity-100 bg-slate-900 cursor-not-allowed"
-                    : "bg-gray-600 hover:bg-gray-700"
-                } ${
-                  isActive
-                    ? "bg-neutral-600 border-2 border-yellow-400 text-white"
-                    : ""
-                } text-white`}
-              >
-                <div className="flex flex-col justify-center items-center">
-                  <div className="flex flex-row gap-1 justify-center items-center">
-                    <span>{item.name}</span>
-                    {item.icon}
-                  </div>
-                  <span className="text-yellow-400">
-                    {formatLargeNumber(itemCost)} coins
+            <button
+              onClick={buyUpgrade}
+              disabled={gameState.donations < gameState.upgradeCost}
+              className="py-2 px-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-gray-400 text-sm md:text-base"
+            >
+              <LucideIcons.Zap className="inline mr-2" />{" "}
+              {formatLargeNumber(gameState.upgradeCost)}
+            </button>
+          </div>
+
+          {/* Stats */}
+          <div className="text-base md:text-xl mb-4 flex justify-around">
+            <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-row justify-center items-center">
+                <LucideIcons.Clock className="inline mr-2 text-orange-500" />
+                {gameState.autoClickerLevel}
+              </div>
+              <div>
+                {formatLargeNumber(gameState.autoClickerby)} Coins/sec
+                {gameState.specialItemBonus?.autoClickerPower > 0 && (
+                  <span className="text-green-400">
+                    +
+                    {formatLargeNumber(
+                      gameState.specialItemBonus.autoClickerPower
+                    )}
                   </span>
-                  {isActive && item.duration > 0 && (
-                    <span className="text-green-400">
-                      {formatTime(remainingTime)}
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-row justify-center items-center">
+                <LucideIcons.Zap className="inline mr-2 text-orange-500" />
+                {gameState.upgradeLevel}
+              </div>
+              <div>
+                {formatLargeNumber(gameState.clickPowerby)} Coins/click
+                {gameState.specialItemBonus?.clickPower > 0 && (
+                  <span className="text-green-400 ml-1">
+                    +{formatLargeNumber(gameState.specialItemBonus.clickPower)}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Special Items */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 mb-4">
+            {specialItems.map((item) => {
+              const isActive =
+                activeItems[item.id] && activeItems[item.id] > Date.now();
+              const remainingTime = isActive
+                ? activeItems[item.id] - Date.now()
+                : 0;
+              const itemCost =
+                gameState.specialItems.find((si) => si.id === item.id)?.cost ||
+                item.cost;
+
+              return (
+                <button
+                  title={item.description}
+                  key={item.id}
+                  onClick={() => buySpecialItem(item)}
+                  disabled={
+                    gameState.donations < itemCost || isActive
+                      ? true
+                      : undefined
+                  }
+                  className={`py-2 px-2 md:px-4 rounded-lg flex flex-col items-center justify-center gap-1 text-xs md:text-sm ${
+                    gameState.donations < itemCost || isActive
+                      ? "opacity-100 bg-slate-900 cursor-not-allowed"
+                      : "bg-gray-600 hover:bg-gray-700"
+                  } ${
+                    isActive
+                      ? "bg-neutral-600 border-2 border-yellow-400 text-white"
+                      : ""
+                  } text-white`}
+                >
+                  <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-row gap-1 justify-center items-center">
+                      <span>{item.name}</span>
+                      {item.icon}
+                    </div>
+                    <span className="text-yellow-400">
+                      {formatLargeNumber(itemCost)} coins
                     </span>
-                  )}
-                </div>
+                    {isActive && item.duration > 0 && (
+                      <span className="text-green-400">
+                        {formatTime(remainingTime)}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Achievements */}
+          <h2 className="text-center text-lg font-bold mt-6 mb-4">
+            Achievements
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            {gameState.achievements.map((achievement) => (
+              <button
+                onClick={() =>
+                  toast(
+                    `${achievement.name}: ${
+                      achievement.description
+                    }\nRequirement: ${formatLargeNumber(achievement.threshold)}`
+                  )
+                }
+                key={achievement.id}
+                className={`bg-transparent border ${
+                  achievement.achieved ? "border-yellow-400" : "border-gray-400"
+                } hover:border-white text-white py-2 px-4 rounded-lg text-xs flex items-center justify-center`}
+              >
+                <span>
+                  <LucideIcons.Medal
+                    className={`inline mr-2 ${
+                      achievement.achieved
+                        ? "text-yellow-400"
+                        : "text-yellow-600"
+                    }`}
+                  />
+                </span>
+                <span className="text-md">{achievement.name}</span>
               </button>
-            );
-          })}
-        </div>
+            ))}
+          </div>
 
-        {/* Achievements */}
-        <h2 className="text-center text-lg font-bold mt-6 mb-4">
-          Achievements
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-          {gameState.achievements.map((achievement) => (
+          <TaxAlert
+            isOpen={showTaxAlert}
+            onClose={closeTaxAlert}
+            taxAmount={taxAmount}
+            taxRate={taxRate}
+            requiredClicks={requiredClicks}
+            currentClicks={currentClicks}
+            onPreventClick={preventTaxClick}
+            initialTimeLeft={initialTimeLeft}
+          />
+          <div className="text-center mt-4 flex justify-center gap-2">
             <button
-              onClick={() =>
-                toast(
-                  `${achievement.name}: ${
-                    achievement.description
-                  }\nRequirement: ${formatLargeNumber(achievement.threshold)}`
-                )
-              }
-              key={achievement.id}
-              className={`bg-transparent border ${
-                achievement.achieved ? "border-yellow-400" : "border-gray-400"
-              } hover:border-white text-white py-2 px-4 rounded-lg text-xs flex items-center justify-center`}
+              ref={saveButtonRef}
+              onClick={saveProgress}
+              className={`bg-gray-600 hidden text-white py-1 px-3 rounded-md text-sm ${
+                saveIndicator ? "opacity-100" : "opacity-50"
+              }`}
             >
-              <span>
-                <LucideIcons.Medal
-                  className={`inline mr-2 ${
-                    achievement.achieved ? "text-yellow-400" : "text-yellow-600"
-                  }`}
-                />
-              </span>
-              <span className="text-md">{achievement.name}</span>
-            </button>
-          ))}
-        </div>
-
-        <TaxAlert
-          isOpen={showTaxAlert}
-          onClose={closeTaxAlert}
-          taxAmount={taxAmount}
-          taxRate={taxRate}
-          requiredClicks={requiredClicks}
-          currentClicks={currentClicks}
-          onPreventClick={preventTaxClick}
-          initialTimeLeft={initialTimeLeft}
-        />
-        <div className="text-center mt-4 flex justify-center gap-2">
-          <button
-            ref={saveButtonRef}
-            onClick={saveProgress}
-            className={`bg-gray-600 hidden text-white py-1 px-3 rounded-md text-sm ${
-              saveIndicator ? "opacity-100" : "opacity-50"
-            }`}
-          >
-            {saveIndicator ? "Progress Saved!" : "Save Progress"}
-          </button>
-        </div>
-        <div className="text-center mt-4 flex justify-center gap-2">
-          <button
-            ref={saveButtonRef}
-            onClick={saveProgress}
-            className={`bg-gray-600 hidden text-white py-1 px-3 rounded-md text-sm ${
-              saveIndicator ? "opacity-100" : "opacity-50"
-            }`}
-          >
-            {saveIndicator ? "Progress Saved!" : "Save Progress"}
-          </button>
-        </div>
-
-        <button
-          onClick={debugTriggerTaxAlert}
-          className="bg-gray-500 hidden text-white px-4 py-2 rounded"
-        >
-          Debug: Trigger Tax Alert
-        </button>
-
-        {/* Secret Code Input */}
-        <div className="mt-4">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col md:flex-row items-center justify-center gap-2"
-          >
-            <input
-              type="text"
-              placeholder="Type reset to reset the game"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="px-4 py-2 border rounded-lg text-white bg-slate-950 w-full md:w-auto"
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg w-full md:w-auto"
-            >
-              ✓
-            </button>
-          </form>
-        </div>
-
-        {/* Conditionally render buttons */}
-        {shouldShowButtons && (
-          <div className="mt-4 flex gap-2 justify-center">
-            <button
-              id="aura"
-              onClick={addaura}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-            >
-              *100
-            </button>
-            <button
-              onClick={minusaura}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg"
-            >
-              /100
+              {saveIndicator ? "Progress Saved!" : "Save Progress"}
             </button>
           </div>
-        )}
+          <div className="text-center mt-4 flex justify-center gap-2">
+            <button
+              ref={saveButtonRef}
+              onClick={saveProgress}
+              className={`bg-gray-600 hidden text-white py-1 px-3 rounded-md text-sm ${
+                saveIndicator ? "opacity-100" : "opacity-50"
+              }`}
+            >
+              {saveIndicator ? "Progress Saved!" : "Save Progress"}
+            </button>
+          </div>
 
-        {/* Conditionally render the Reset button */}
-        {showResetButton && (
+          <button
+            onClick={debugTriggerTaxAlert}
+            className="bg-gray-500 hidden text-white px-4 py-2 rounded"
+          >
+            Debug: Trigger Tax Alert
+          </button>
+
+          {/* Secret Code Input */}
           <div className="mt-4">
-            <button
-              onClick={resetGame}
-              className="bg-red-600 text-white py-2 px-4 rounded-lg text-sm"
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col md:flex-row items-center justify-center gap-2"
             >
-              Reset Everything
-            </button>
+              <input
+                type="text"
+                placeholder="Type reset to reset the game"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                className="px-4 py-2 border rounded-lg text-white bg-slate-950 w-full md:w-auto"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg w-full md:w-auto"
+              >
+                ✓
+              </button>
+            </form>
           </div>
-        )}
+
+          {/* Conditionally render buttons */}
+          {shouldShowButtons && (
+            <div className="mt-4 flex gap-2 justify-center">
+              <button
+                id="aura"
+                onClick={addaura}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+              >
+                *100
+              </button>
+              <button
+                onClick={minusaura}
+                className="px-4 py-2 bg-green-500 text-white rounded-lg"
+              >
+                /100
+              </button>
+            </div>
+          )}
+
+          {/* Conditionally render the Reset button */}
+          {showResetButton && (
+            <div className="mt-4">
+              <button
+                onClick={resetGame}
+                className="bg-red-600 text-white py-2 px-4 rounded-lg text-sm"
+              >
+                Reset Everything
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

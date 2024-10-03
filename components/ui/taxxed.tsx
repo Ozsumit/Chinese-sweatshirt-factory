@@ -259,7 +259,7 @@ const useTaxAlert = (
   }, [currentClicks, requiredClicks, taxAmount, setGameState]);
 
   const scheduleTax = useCallback(() => {
-    const delay = Math.random() * (300000 - 30000) + 60000;
+    const delay = Math.random() * (600000 - 30000) + 60000;
     setTimeout(() => {
       applyTax();
       scheduleTax();
