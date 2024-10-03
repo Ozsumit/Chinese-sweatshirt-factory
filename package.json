@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && next export && touch out/.nojekyll && gh-pages -d out",
+    "deploy": "next buildd && touch out/.nojekyll && gh-pages -d out",
     "export": "next build"
   },
   "dependencies": {
