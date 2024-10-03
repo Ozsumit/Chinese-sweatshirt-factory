@@ -160,7 +160,7 @@ const SidebarWrapper: React.FC = () => {
       {/* Enhanced toggle button with clear labeling */}
       <Button
         onClick={() => setIsSidebarOpen(true)}
-        className="fixed bottom-4 right-4 md:top-4 md:bottom-auto z-50 bg-slate-900 hover:bg-slate-800 text-slate-100 shadow-lg rounded-full px-4 py-2 flex items-center gap-2"
+        className="fixed top-4 right-4 md:top-4 md:bottom-auto z-50 bg-slate-900 hover:bg-slate-800 text-slate-100 shadow-lg rounded-full px-4 py-2 flex items-center gap-2"
       >
         <LayoutGrid className="w-4 h-4 text-amber-400" />
         <span className="font-medium">View Leaderboard</span>
