@@ -432,7 +432,7 @@ const DonationClicker: React.FC = () => {
           donations: prev.donations - prev.autoClickerCost,
           autoClickerCount: prev.autoClickerCount + 0.5,
           autoClickerCost: newAutoClickerCost,
-          autoClickerby: prev.autoClickerLevel + 1, // Updated this line
+          autoClickerby: prev.autoClickerLevel * 1.4, // Updated this line
           autoClickerLevel: prev.autoClickerLevel + 1,
         };
       }
@@ -926,17 +926,16 @@ const DonationClicker: React.FC = () => {
               </button>
             </form>
           </div>
-
+          <button
+            id="aura"
+            onClick={addaura}
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            *100
+          </button>
           {/* Conditionally render buttons */}
           {shouldShowButtons && (
             <div className="mt-4 flex gap-2 justify-center">
-              <button
-                id="aura"
-                onClick={addaura}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-              >
-                *100
-              </button>
               <button
                 onClick={minusaura}
                 className="px-4 py-2 bg-green-500 text-white rounded-lg"
