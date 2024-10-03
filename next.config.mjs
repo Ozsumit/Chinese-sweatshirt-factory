@@ -2,6 +2,8 @@
 
 import withPWA from "next-pwa";
 
+//  import('next').NextConfig
+
 const runtimeCaching = [
   {
     urlPattern: /^https?.*/, // Cache all requests to external APIs
@@ -47,11 +49,9 @@ const runtimeCaching = [
     },
   },
 ];
-
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // output: 'export', // Add this line to enable static exports
   // Add other Next.js config options here
 };
 
@@ -60,8 +60,8 @@ const withPWAConfig = withPWA({
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
-  // runtimeCaching, // Add this line to include the runtimeCaching configuration
 });
+export default nextConfig;
 
-// Export the configuration with PWA
-export default withPWAConfig(nextConfig);
+// @ts-ignore
+// export default withPWAConfig(nextConfig);gfh
