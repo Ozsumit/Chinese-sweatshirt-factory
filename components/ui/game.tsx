@@ -263,15 +263,25 @@ const initialGameState: GameState = {
   },
 };
 // Custom hook that handles input logic and button visibility
-
+//  'D' for decillion (10^33)
+//  * - 'N' for nonillion (10^30)
+//  * - 'O' for octillion (10^27)
+//  * - 'S' for septillion (10^24)
+//  * - 'S' for sextillion (10^21)
+//  * - 'Q' for quintillion (10^18)
+//  * - 'q' for quadrillion (10^15)
+//  * - 'T' for trillion (10^12)
+//  * - 'B' for billion (10^9)
+//  * - 'M' for million (10^6)
+//  * - 'K' for thousand (10^3)
 const formatLargeNumber = (num: number): string => {
   if (num >= 1e33) return (num / 1e33).toFixed(2) + "D";
   if (num >= 1e30) return (num / 1e30).toFixed(2) + "N";
   if (num >= 1e27) return (num / 1e27).toFixed(2) + "O";
-  if (num >= 1e24) return (num / 1e24).toFixed(2) + "S";
+  if (num >= 1e24) return (num / 1e24).toFixed(2) + "Sep";
   if (num >= 1e21) return (num / 1e21).toFixed(2) + "S";
-  if (num >= 1e18) return (num / 1e18).toFixed(2) + "Q";
-  if (num >= 1e15) return (num / 1e15).toFixed(2) + "q";
+  if (num >= 1e18) return (num / 1e18).toFixed(2) + "Qt";
+  if (num >= 1e15) return (num / 1e15).toFixed(2) + "Q";
   if (num >= 1e12) return (num / 1e12).toFixed(2) + "T";
   if (num >= 1e9) return (num / 1e9).toFixed(2) + "B";
   if (num >= 1e6) return (num / 1e6).toFixed(2) + "M";
@@ -695,14 +705,6 @@ const DonationClicker: React.FC = () => {
     <div className="flex flex-row-reverse gap-4 w-auto justify-center items-center text-center rounded-[1rem] p-4 min-h-screen bg-gray-900 border-b border-gray-700">
       <TopDonorsComponent />
       <div className="flex flex-col justify-center items-center w-full">
-        <h1 className="text-2xl md:text-4xl font-mono w-full justify-center items-center flex flex-col mb-6 md:mb-12 font-bold text-white">
-          Beat the high score of
-          <span className="text-yellow-400 flex items-center">
-            <LucideIcons.Coins className="text-yellow-400" />
-            9.5D
-          </span>
-          to get free lunch
-        </h1>
         <div className="bg-gray-950 p-4 rounded-lg shadow-lg w-full  text-white mx-auto border-accenth">
           {/* Top Section with Coins and Donations */}
           <div className="flex justify-center text-center mb-4">
