@@ -118,7 +118,6 @@ export default function Home() {
       <Welcome features={siteFeatures} />
       <PWAInstallAndNotifications />
       <Toaster />
-      <Button onClick={handleManualUpdate}>Update Manually</Button>
       <TopDonorsComponent />
       <div className="select-none">
         <main className="flex flex-col gap-8 row-start-2 items-center">
@@ -128,6 +127,7 @@ export default function Home() {
           <h1 className="text-2xl w-auto border-b-2 p-[1%] border-yellow-400 md:text-4xl font-sans justify-center items-center flex flex-col font-bold text-yellow-400">
             {userName ? `Welcome, ${userName}` : "Welcome to the Donation Game"}
           </h1>
+          <Button onClick={handleManualUpdate}>Update Manually</Button>
           <SweatshirtFactory />
         </main>
       </div>
