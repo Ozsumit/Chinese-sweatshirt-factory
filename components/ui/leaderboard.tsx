@@ -42,7 +42,8 @@ const TopDonorsComponent: React.FC = () => {
     <div className="w-full max-w-lg mx-auto bg-gray-900 shadow-md rounded-lg overflow-hidden">
       <div className="px-6 py-4 bg-gray-800 border-b border-gray-700">
         <h2 className="text-2xl font-bold text-center text-white">
-          Top 5 Donors <FaUserTie className="inline-block ml-2 text-yellow-400" />
+          Top 5 Donors{" "}
+          <FaUserTie className="inline-block ml-2 text-yellow-400" />
         </h2>
       </div>
       <div className="p-4 md:p-6">
@@ -76,7 +77,7 @@ const TopDonorsComponent: React.FC = () => {
             <table className="min-w-full">
               <thead>
                 <tr className="bg-gray-800">
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                     <FaUserTie className="inline-block mr-1" /> Rank
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
