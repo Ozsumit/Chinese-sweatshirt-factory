@@ -27,7 +27,7 @@ export default async function handler(
         .collection("leaderboards")
         .find()
         .sort({ donation: -1 })
-        .limit(5)
+        .limit(10)
         .toArray();
 
       console.log(
