@@ -1,7 +1,32 @@
 import React from 'react';
 
+// Type definitions
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children: React.ReactNode;
+}
+
+interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children: React.ReactNode;
+}
+
+interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children: React.ReactNode;
+}
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  className?: string;
+  type?: string;
+}
+
 // Card Component
-const Card = ({ className, children, ...props }) => {
+const Card: React.FC<CardProps> = ({ 
+  className = '', 
+  children, 
+  ...props 
+}) => {
   return (
     <div
       className={`rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-950 ${className}`}
@@ -12,7 +37,11 @@ const Card = ({ className, children, ...props }) => {
   );
 };
 
-const CardHeader = ({ className, children, ...props }) => {
+const CardHeader: React.FC<CardHeaderProps> = ({ 
+  className = '', 
+  children, 
+  ...props 
+}) => {
   return (
     <div
       className={`flex flex-col space-y-1.5 p-6 ${className}`}
@@ -23,16 +52,27 @@ const CardHeader = ({ className, children, ...props }) => {
   );
 };
 
-const CardContent = ({ className, children, ...props }) => {
+const CardContent: React.FC<CardContentProps> = ({ 
+  className = '', 
+  children, 
+  ...props 
+}) => {
   return (
-    <div className={`p-6 pt-0 ${className}`} {...props}>
+    <div 
+      className={`p-6 pt-0 ${className}`} 
+      {...props}
+    >
       {children}
     </div>
   );
 };
 
 // Input Component
-const Input = React.forwardRef(({ className, type = 'text', ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ 
+  className = '', 
+  type = 'text', 
+  ...props 
+}, ref) => {
   return (
     <input
       type={type}
