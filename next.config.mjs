@@ -52,6 +52,7 @@ const runtimeCaching = [
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  output: "export",
   // Add other Next.js config options here
 };
 
@@ -61,6 +62,7 @@ const withPWAConfig = withPWA({
   register: true,
   skipWaiting: true,
 });
+
 export default nextConfig;
 
 // @ts-ignore
